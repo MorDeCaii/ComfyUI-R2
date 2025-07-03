@@ -31,9 +31,6 @@ class S3SaveNode:
             }
         }
 
-    @classmethod    
-    def IS_CHANGED(cls):
-        return time.time()
 
     RETURN_TYPES = ("STRING",)
     FUNCTION = "save_to_s3"
@@ -103,7 +100,7 @@ class S3SaveNode:
                     })
 
             # Return JSON string of results
-            return (json.dumps(results), )
+            return {"STRING": json.dumps(results)}
 
         except Exception as e:
             error_msg = f"Fatal error: {str(e)}"
