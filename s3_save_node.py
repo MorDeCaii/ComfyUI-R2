@@ -21,13 +21,13 @@ class S3SaveNode:
         )
         self.cloudflare_r2_url = os.environ.get("CLOUDFLARE_R2_URL", "https://img-dev.fantasy.ai/")
         self.cloudflare_r2_bucket = os.environ.get("CLOUDFLARE_R2_BUCKET", "fan-dev")
-        self.cloudflare_r2_prefix = os.environ.get("CLOUDFLARE_R2_PREFIX", "vik_tests/")
 
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "images": ("IMAGE",),
+                "file_prefix": ("STRING", {"default": ""})
             }
         }
 
@@ -37,9 +37,9 @@ class S3SaveNode:
     OUTPUT_NODE = True
     CATEGORY = "image/s3"
 
-    def save_to_s3(self, images):
+    def save_to_s3(self, images, file_prefix):
         bucket = self.cloudflare_r2_bucket
-        prefix = self.cloudflare_r2_prefix
+        prefix = file_prefix
         results = []
 
         try:
